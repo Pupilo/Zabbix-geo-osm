@@ -41,6 +41,7 @@ $grupo->conectar();
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
 <meta http-equiv="Cache-control" content="no-cache">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -51,27 +52,39 @@ $grupo->conectar();
 <link rel="stylesheet" type="text/css" href="css/geral.css" />
 <link rel="stylesheet" type="text/css" href="css/grupo.css" />
 
-
 <!-- ========================= OpenStreetMap =========================  -->
-<!--
 <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
-<div id="#mapa" style="height:600px"></div>
-<script src="OpenLayers.js"></script>
 <script>
-    map = new OpenLayers.Map("#mapa");
-    map.addLayer(new OpenLayers.Layer.OSM());
-    map.zoomToMaxExtent();
+	function opensmap(){
+		mapa = new OpenLayers.Map("OpenMap");
+		mapa.addLayer(new OpenLayers.Layer.OSM());
+    	mapa.zoomToMaxExtent();
     
-    map.addControl(new OpenLayers.Control.MousePosition());
-    map.addLayer(new OpenLayers.Layer.OSM());
-    map.zoomToMaxExtent();
+    	mapa.addControl(new OpenLayers.Control.MousePosition());
+    	mapa.addLayer(new OpenLayers.Layer.OSM());
+    	mapa.zoomToMaxExtent();
+
+
+ 		//Marcação no mapa, testes
+    	var lonLat = new OpenLayers.LonLat( -13.007642 ,-38.492606 )
+        	.transform(
+        	    new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
+        	   	mapa.getProjectionObject() // to Spherical Mercator Projection
+        	);
+ 
+    	var zoom=16;
+ 
+    	var markers = new OpenLayers.Layer.Markers( "Markers" );
+    	mapa.addLayer(markers);
+    	markers.addMarker(new OpenLayers.Marker(lonLat));
+    	//Fim de teste
+    }
 </script> 
--->
 <!-- =================================================================== -->
 
 </head>
 
-<body>
+<body onload="opensmap();">
 <div id="pagina-principal">
 
 	<table id="pagina-principal-tabela">
@@ -110,18 +123,7 @@ $grupo->conectar();
 		
 		<tr>
 			<td class="pagina-principal-centro">
-				<script src="http://www.openlayers.org/api/OpenLayers.js"></script>
-				<div id="OpenMap" style="height:600px"></div>
-				<script src="OpenLayers.js"></script>
-				<script>
-    				mapa = new OpenLayers.Map("OpenMap");
-    				mapa.addLayer(new OpenLayers.Layer.OSM());
-    				mapa.zoomToMaxExtent();
-    
-    				mapa.addControl(new OpenLayers.Control.MousePosition());
-    				mapa.addLayer(new OpenLayers.Layer.OSM());
-    				mapa.zoomToMaxExtent();
-				</script> 
+				<div id="OpenMap"></div>
 				</div>
 			</td>
 		</tr>

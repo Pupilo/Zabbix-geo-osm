@@ -57,6 +57,12 @@ body {
 	border: 0px solid black;
 }
 
+#OpenMap {
+	height: 100%;
+	width: 100%;
+	border: 0px solid black;
+}
+
 #camadas {
 	float:right; 
 	width: 200px; 
